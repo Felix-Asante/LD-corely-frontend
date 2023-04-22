@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import Login from "./Pages/Login";
 import StepOne from "./Pages/Signup/StepOne";
 import StepTwo from "./Pages/Signup/StepTwo";
@@ -24,8 +24,16 @@ export const router = createBrowserRouter([
 		path: "reset-password",
 		children: [
 			{ path: "", element: <ResetPassword /> },
-			{ path: "email-sent", element: <ResetEmailSent /> },
-			{ path: "change-password", element: <ConfirmPassword /> },
+			{
+				path: "change-password",
+				element: <ConfirmPassword />,
+				loader: ({ request }) => {
+					const url = new URL(request.url);
+					const code = url.searchParams.get("code");
+					if (!code) return redirect("/");
+					return { code };
+				},
+			},
 		],
 	},
 	{
