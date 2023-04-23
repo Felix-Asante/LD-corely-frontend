@@ -7,7 +7,6 @@ import {
 	DialogTitle,
 	Grid,
 	IconButton,
-	Input,
 	Popover,
 	Stack,
 	TextField,
@@ -24,6 +23,8 @@ import CookieIcon from "../../components/icons/CookieIcon";
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/lib/css/styles.css";
 import { Link } from "react-router-dom";
+import WithAuth from "../../components/WithAuth";
+import { RouteType } from "../../config/constants";
 
 const process = [
 	{
@@ -39,7 +40,7 @@ const process = [
 		isPrivate: true,
 	},
 ];
-export default function Board() {
+function Board() {
 	const [showProcessModal, setShowProcessModal] = useState(false);
 	const [color, setColor] = useColor("hex", "#121212");
 	const [showColorPicker, setShowColorPicker] = useState(false);
@@ -218,3 +219,5 @@ function ProcessCard({ isPrivate, name, bgColor }: ProcessProps) {
 		</Link>
 	);
 }
+
+export default WithAuth(Board, RouteType.AUTH);

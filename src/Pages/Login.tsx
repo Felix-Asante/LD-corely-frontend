@@ -13,13 +13,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { default as MUILink } from "@mui/material/Link";
 import { useMutationRequest } from "../hooks/useMutationRequest";
 import { useSnackbar } from "../context/Snackbar";
-import { formatResponseError } from "../components/helpers/general";
+import { formatResponseError, setToken } from "../helpers/general";
 import { LoadingButton } from "@mui/lab";
+import { useAuth } from "../context/Auth";
+import WithAuth from "../components/WithAuth";
+import { RouteType } from "../config/constants";
 
-export default function Login() {
+function Login() {
 	const { postMutation, creating } = useMutationRequest("/api/auth/local");
 	const { toastError } = useSnackbar();
 	const navigate = useNavigate();
+	const { setUser } = useAuth();
 
 	const getFormData = (e: FormEvent<HTMLFormElement>) => {
 		const formData = new FormData(e.currentTarget);
@@ -37,7 +41,9 @@ export default function Login() {
 			onError(error) {
 				toastError(formatResponseError(error));
 			},
-			onSuccess() {
+			onSuccess(data) {
+				setToken("corely", data?.jwt);
+				setUser(data?.user);
 				navigate("/board");
 			},
 		});
@@ -118,3 +124,5 @@ export default function Login() {
 		</AuthLayout>
 	);
 }
+
+export default WithAuth(Login, RouteType.GUEST);

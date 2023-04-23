@@ -1,17 +1,11 @@
 import React, { ReactNode, createContext, useContext, useState } from "react";
 
 const DEFAULT_USER_INFO = {
-	// username: "",
-	// surname: "",
-	// password: "",
 	workspaceName: "",
 	email: "",
 };
 
 interface User {
-	// username: string;
-	// surname: string;
-	// password: string;
 	workspaceName: string;
 	email: string;
 }

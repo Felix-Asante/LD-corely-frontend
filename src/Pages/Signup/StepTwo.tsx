@@ -3,7 +3,7 @@ import { Box, Stack, TextField, Typography } from "@mui/material";
 import { FormEvent, useState } from "react";
 import { useMutationRequest } from "../../hooks/useMutationRequest";
 import { useSignUpContext } from "../../context/SignupContext";
-import { formatResponseError } from "../../components/helpers/general";
+import { formatResponseError } from "../../helpers/general";
 import { useSnackbar } from "../../context/Snackbar";
 
 type Props = {

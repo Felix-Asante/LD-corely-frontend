@@ -3,8 +3,10 @@ import AuthLayout from "../../components/Layout/AuthLayout";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import EmailSent from "./EmailSent";
+import WithAuth from "../../components/WithAuth";
+import { RouteType } from "../../config/constants";
 
-export default function SignUp() {
+function SignUp() {
 	const [activeStep, setActiveStep] = useState(1);
 
 	const changeStep = (index: number) => setActiveStep(index);
@@ -21,3 +23,5 @@ export default function SignUp() {
 		</AuthLayout>
 	);
 }
+
+export default WithAuth(SignUp, RouteType.GUEST);
