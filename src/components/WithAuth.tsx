@@ -6,7 +6,7 @@ import apiService from "../services/api.service";
 import { useNavigate } from "react-router-dom";
 import PageLoader from "./PageLoader";
 
-export default function WithAuth<T>(
+export default function WithAuth<T extends JSX.IntrinsicAttributes>(
 	WrappedComponent: ComponentType<T>,
 	route: RouteType
 ) {
@@ -19,7 +19,7 @@ export default function WithAuth<T>(
 	};
 
 	return (hocProps: T) => {
-		const { isAuthenticated, isLoading, setUser, user, logout } = useAuth();
+		const { isAuthenticated, isLoading, setUser, logout } = useAuth();
 		const navigate = useNavigate();
 
 		useEffect(() => {
@@ -31,7 +31,6 @@ export default function WithAuth<T>(
 						setUser(data);
 					}
 				} catch {
-					console.log("ERROR");
 					if (isAuthenticated || isLoading) {
 						logout();
 						navigate("/");
